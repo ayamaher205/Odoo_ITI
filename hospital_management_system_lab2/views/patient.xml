@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <record id="action_patient" model="ir.actions.act_window">
+            <field name="name">Patients</field>
+            <field name="res_model">patients_lab2</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="hms_patients_lab2_tree" model="ir.ui.view">
+            <field name="name">Patients Tree View</field>
+            <field name="model">patients_lab2</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="first_name"/>
+                    <field name="last_name"/>
+                    <field name="birth_date"/>
+                    <field name="blood_type"/>
+                    <field name="cr_ratio"/>
+                    <field name="pcr"/>
+                    <field name="age"/>
+                    <field name="department_id"/>
+                    <field name="department_capacity"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="hms_patients_lab2_form" model="ir.ui.view">
+            <field name="name">Patients Form View</field>
+            <field name="model">patients_lab2</field>
+            <field name="arch" type="xml">
+                <form string="Patient">
+                <sheet>
+                    <group>
+                        <field name="first_name"/>
+                        <field name="last_name"/>
+                        <field name="email" required="1"/>
+                        <field name="birth_date"/>
+                        <field name="state"/>
+                        <field name="age" readonly="1"/>
+                        <field name="history" invisible="age &lt; 50"/>
+                        <field name="cr_ratio" required="pcr == True"/>
+                        <field name="blood_type"/>
+                        <field name="pcr"/>
+                        <field name="image" widget="image" options="{'size': [100,100]}"/>
+                        <field name="address"/>
+                        <field name="department_id" id="department_id" domain="[('is_open', '=', 'True')]"/>
+                        <field name="department_capacity" readonly="1"/>
+                        <field name="doctor_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="log_history_ids">
+                            <tree>
+                                <field name="date"/>
+                                <field name="description"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+            </field>
+        </record>
+
+        <menuitem id="menu_hms_root" name="HMSLab2"/>
+        <menuitem id="menu_patient" name="Patients" parent="menu_hms_root" action="action_patient"/>
+    </data>
+</odoo>

@@ -23,7 +23,7 @@ class Patient(models.Model):
             ('O-', 'O-')
         ], string='Blood Type'
     )
-    pcr = fields.Boolean(string='PCR', defualt=False)
+    pcr = fields.Boolean(string='PCR', default=False)
     image = fields.Image(string='Image')
     address = fields.Text(string='Address')
     age = fields.Char(string='Age', compute='_compute_age')
